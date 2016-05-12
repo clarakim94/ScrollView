@@ -58,13 +58,13 @@ public:
     // To enforce horizontal-only scrolling, the Y axis ruler can be disabled
     RulerPtr rulerY = new DefaultRuler();
     rulerY->Disable();
-    scrollView.SetRulerY( rulerY );
+    scrollView.SetRulerX( rulerY );
 
     // A domain can be applied to rulers to prevent scrolling beyond this boundary
     // In this case, to 4 times the width of the stage, allowing for 4 pages to be scrolled
-    RulerPtr rulerX2 = new FixedRuler( size.width );
+    RulerPtr rulerX2 = new FixedRuler( size.height );
     rulerX2->SetDomain( RulerDomain( 0.0f, size.width*NUM_IMAGES ) );
-    scrollView.SetRulerX( rulerX2 );
+    scrollView.SetRulerY( rulerX2 );
 
     // Connect key event signal
     stage.KeyEventSignal().Connect( this, &ScrollViewSample::OnKeyEvent );
@@ -79,7 +79,7 @@ public:
     imageView.SetParentOrigin( ParentOrigin::CENTER );
     imageView.SetAnchorPoint( AnchorPoint::CENTER );
 
-    imageView.SetPosition( index * stageSize.x, 0 );
+    imageView.SetPosition( 0, index * stageSize.y );
     scrollView.Add( imageView );
   }
 
